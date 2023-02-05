@@ -2,28 +2,45 @@
 SQLAlchemy Dialect for SQream DB
 **********************************
 
-Requirements:
+Requirements
 =====================
 
 * Python > 3.6. Python 3.8.1+ recommended
 * SQLAlchemy > 1.3.18
-* SQream DB-API Connector > 3.1.8
-* Cython (optional - improves performance)
+* SQream Blue DB-API Connector >= 1.0.20
 
+Installation
+=====================
 
-Simple Usage Sample:
+Install from the PyPi repository using `pip`:
+
+.. code-block:: bash
+
+    pip install --upgrade pysqream_blue_sqlalchemy
+
+Usage
 ===============================
+
+Integrating with SQLAlchemy
+-------------------------
 
 .. code-block:: python
 
     import sqlalchemy as sa
-                  
-    conn_str = "sqream://sqream:sqream@localhost:5001/master?use_ssl=True"                                                  
-    engine = create_engine(conn_str, echo = print_echo) 
+    conn_string = 'sqream_blue://username:password@url/database'
+    engine = sa.create_engine(conn_string)
+    conn = engine.connect()
+    res = conn.execute("select 'Success' as Test").fetchall()
+    print(res)
 
-    metadata = MetaData()
-    metadata.bind = engine
+Integrating with the IPython/Jupyter SQL Magic
+-------------------------
 
-    res = engine.execute('create or replace table test (ints int)')
-    res = engine.execute('insert into test values (5), (6)')
-    res = engine.execute('select * from test')
+.. code-block:: python
+
+    %load_ext sql
+    %config SqlMagic.autocommit=False
+    %config SqlMagic.displaycon=False
+    %config SqlMagic.autopandas=True
+    %env DATABASE_URL sqream_blue://sqream:sqream@product.isqream.com/master
+    %sql select 'Success' as Test
