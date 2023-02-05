@@ -3,11 +3,11 @@ from setuptools import setup
 
 setup_params = dict(
     
-    name =             'pysqream_sqlalchemy',
+    name =             'pysqream_blue_sqlalchemy',
     version =          '0.7',
-    description =      'SQLAlchemy dialect for SQreamDB', 
+    description =      'SQLAlchemy dialect for SQream Blue', 
     long_description = open("README.rst", "r").read() + '\n\n',
-    url=               "https://github.com/SQream/pysqream_sqlalchemy",
+    url=               "https://github.com/SQream/pysqream_blue_sqlalchemy",
     
     author =           'SQream',
     author_email =     'info@sqream.com',
@@ -22,18 +22,18 @@ setup_params = dict(
     python_requires =  '>=3.6',
     
     install_requires = ['sqlalchemy>=1.3.18',
-                        'pysqream>=3.1.8',
+                        'pysqream_blue>=1.0.20',
                         'setuptools==57.4.0',
                         'pytest==6.2.3',
                         'pudb==2022.1.2',
                         'pandas==1.1.5',
-                        'numpy==1.19.5',
+                        'numpy==1.20',
                         'alembic==1.5.8'],
     
-    packages         = ['pysqream_sqlalchemy'], 
+    packages         = ['pysqream_blue_sqlalchemy'], 
     
     entry_points =     {'sqlalchemy.dialects': 
-        ['sqream = pysqream_sqlalchemy.dialect:SqreamDialect']
+        ['sqream_blue = pysqream_blue_sqlalchemy.dialect:SqreamBlueDialect']
     },
     # sqream://sqream:sqream@localhost/master
 )

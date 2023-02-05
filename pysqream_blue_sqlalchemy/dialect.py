@@ -41,10 +41,10 @@ else:
     class SQreamImpl(DefaultImpl):
         ''' Allows Alembic tool to recognize the dialect if installed '''
 
-        __dialect__ = 'sqream'
+        __dialect__ = 'sqream_blue'
 
 
-registry.register("pysqream", "dialect", "SqreamDialect")
+registry.register("pysqream_blue", "dialect", "SqreamBlueDialect")
 
 
 
@@ -215,13 +215,13 @@ class SqreamSQLCompiler(compiler.SQLCompiler):
             return text
 
 
-class SqreamDialect(DefaultDialect):
+class SqreamBlueDialect(DefaultDialect):
     ''' dbapi() classmethod, get_table_names() and get_columns() seem to be the
         important ones for Apache Superset. get_pk_constraint() returning an empty
         sequence also needs to be in place  '''
 
-    name = 'sqream'
-    driver = 'sqream'
+    name = 'sqream_blue'
+    driver = 'sqream_blue'
     default_paramstyle = 'qmark'
     supports_native_boolean = True
     supports_multivalues_insert = True
@@ -238,16 +238,8 @@ class SqreamDialect(DefaultDialect):
     @classmethod
     def dbapi(cls):
         ''' The minimal reqruirement to get an engine.connect() going'''
-        # return dbapi
-
-        # return __import__("sqream_dbapi", fromlist="sqream")
-
-        try:
-            from pysqream import pysqream as pysqream
-        except ImportError:
-            import pysqream
-
-        return pysqream
+        import pysqream_blue
+        return pysqream_blue
 
     def initialize(self, connection):
         self.default_schema_name = 'public'
