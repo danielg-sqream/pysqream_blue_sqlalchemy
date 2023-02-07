@@ -7,7 +7,7 @@ Requirements
 
 * Python > 3.7. Python 3.8.1+ recommended
 * SQLAlchemy > 1.3.18
-* SQream Blue DB-API Connector >= 1.0.21
+* SQream Blue DB-API Connector >= 1.0.22
 
 Installation
 =====================
