@@ -5,9 +5,9 @@ SQLAlchemy Dialect for SQream DB
 Requirements
 =====================
 
-* Python > 3.6. Python 3.8.1+ recommended
+* Python > 3.7. Python 3.8.1+ recommended
 * SQLAlchemy > 1.3.18
-* SQream Blue DB-API Connector >= 1.0.20
+* SQream Blue DB-API Connector >= 1.0.21
 
 Installation
 =====================
