@@ -6,7 +6,7 @@ setup_params = dict(
     name =             'pysqream_blue_sqlalchemy',
     version =          '0.1',
     description =      'SQLAlchemy dialect for SQream Blue', 
-    long_description_content_type = open("README.rst", "r").read() + '\n\n',
+    long_description_content_type = open("README.rst", "r", encoding="utf-8").read(),
     url=               "https://github.com/SQream/pysqream_blue_sqlalchemy",
     
     author =           'SQream',
