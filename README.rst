@@ -22,7 +22,7 @@ Usage
 ===============================
 
 Integrating with SQLAlchemy
--------------------------
+----------------------------
 
 .. code-block:: python
 
@@ -34,7 +34,7 @@ Integrating with SQLAlchemy
     print(res)
 
 Integrating with the IPython/Jupyter SQL Magic
--------------------------
+-----------------------------------------------
 
 .. code-block:: python
 
