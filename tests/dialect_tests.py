@@ -6,7 +6,7 @@ import os, sys
 sys.path.append(os.path.abspath(__file__).rsplit('tests/', 1)[0] + '/pysqream_sqlalchemy/')
 from sqlalchemy import orm, create_engine, MetaData, inspect, Table, Column, select, insert, cast
 from sqlalchemy.schema import CreateTable   # Print ORM table DDLs
-from base import TestBase, TestBaseWithoutBeforeAfter, Logger
+from base import TestBase, Logger, _access_token
 from alembic.runtime.migration import MigrationContext
 from alembic.operations import Operations
 
@@ -34,8 +34,8 @@ class TestSqlalchemy(TestBase):
         # Test 0 - as bestowed upon me by Yuval. Using the URL object directly instead of a connection string
         sa.dialects.registry.register("pysqream.dialect", "dialect", "SqreamDialect")
         manual_conn_str = sa.engine.url.URL(
-            'pysqream+dialect', username='sqream', password='sqream',
-            host=f'{self.ip}', port=5001, database='master')
+            'pysqream+dialect', access_token=_access_token,
+            host=f'{self.domain}', database='master')
         engine2 = create_engine(manual_conn_str)
         res = engine2.execute('select 1')
         assert(all(row[0] == 1 for row in res))
@@ -55,7 +55,7 @@ class TestSqlalchemy(TestBase):
         assert (inspected_cols[0]['name'] == 'iNts fosho')
 
         self.metadata.reflect(bind=self.engine)
-        assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(pysqream+dialect://sqream:***@{self.ip}:5000/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
+        assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(pysqream+dialect://sqream:***@{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
 
         Logger().info('SQLAlchemy ORM tests')
         # ORM queries - test that correct SQream queries (SQL text strings) are
