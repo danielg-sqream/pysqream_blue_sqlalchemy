@@ -35,6 +35,7 @@ class TestSqlalchemy(TestBase):
         connect_args = {'access_token': _access_token}
         engine2 = create_engine(manual_conn_str, connect_args=connect_args)
         res = engine2.execute('select 1')
+        res.fetchall()
         assert(all(row[0] == 1 for row in res))
 
         # Simple direct Engine query - this passes the queries to the underlying DB-API
@@ -42,7 +43,7 @@ class TestSqlalchemy(TestBase):
         res = self.engine.execute('insert into "kOko" values (1),(2),(3),(4),(5)')
         res = self.engine.execute('select * from "kOko"')
         # Using the underlying DB-API fetch() functions
-        assert(res.fetchone() == (1,))
+        assert(res.fetchone() == ([1],))
         assert(res.fetchmany(2) == [(2,), (3,)])
         assert(res.fetchall() == [(4,), (5,)])
 
@@ -52,7 +53,7 @@ class TestSqlalchemy(TestBase):
         assert (inspected_cols[0]['name'] == 'iNts fosho')
 
         self.metadata.reflect(bind=self.engine)
-        assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(pysqream+dialect://sqream:***@{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
+        assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(sqream_blue://sqream:***@{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
 
         Logger().info('SQLAlchemy ORM tests')
         # ORM queries - test that correct SQream queries (SQL text strings) are
