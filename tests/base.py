@@ -27,7 +27,7 @@ def setTinyint(engine):
 class TestBase():
 
     @pytest.fixture()
-    def ip(self, pytestconfig):
+    def domain(self, pytestconfig):
         return pytestconfig.getoption("domain")
 
     @pytest.fixture(autouse=True)
