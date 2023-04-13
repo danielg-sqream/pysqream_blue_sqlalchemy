@@ -138,15 +138,15 @@ class TestPandas(TestBase):
             'nvarchars': sa.UnicodeText,
             'numerics': sa.Numeric(38, 10)
         }
-
+        # TODO - BLUE IS NOT SUPPORT NETWORK INSERT
         # Drop, create and insert
-        df.to_sql('kOko3', self.engine, if_exists='replace', index=False, dtype=dtype)
+        # df.to_sql('kOko3', self.engine, if_exists='replace', index=False, dtype=dtype)
 
-        res = pd.read_sql('select * from "kOko3"', self.conn_str)
-        res2 = pd.read_sql_table('kOko3', con=self.engine)
+        # res = pd.read_sql('select * from "kOko3"', self.conn_str)
+        # res2 = pd.read_sql_table('kOko3', con=self.engine)
 
-        assert ((res == df).eq(True).all()[0])
-        assert ((res2 == df).eq(True).all()[0])
+        # assert ((res == df).eq(True).all()[0])
+        # assert ((res2 == df).eq(True).all()[0])
 
 
 ## Alembic tests
@@ -210,7 +210,8 @@ class TestAlembic(TestBase):
             }
         ]
 
-        op.bulk_insert(t, data)
-
-        res = self.engine.execute('select * from waste').fetchall()
-        assert(res == [tuple(dikt.values()) for dikt in data])
+        # TODO - BLUE IS NOT SUPPORT NETWORK INSERT
+        # op.bulk_insert(t, data)
+        #
+        # res = self.engine.execute('select * from waste').fetchall()
+        # assert(res == [tuple(dikt.values()) for dikt in data])
