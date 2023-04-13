@@ -12,7 +12,8 @@ _access_token="Z2hZaDdyMmhEWHFkdGJBN3c4em9SSndjcVBXQjI5a05XZjRHSHU4X1B0R1RmbzYzY
 def connect(domain, clustered=False, use_ssl=False):
     print_echo = False
     conn_str = f"sqream_blue://sqream:sqream@{domain}:443/master"
-    engine = create_engine(conn_str, access_token={_access_token}, echo=print_echo)
+    connect_args = {'access_token': _access_token}
+    engine = create_engine(conn_str, connect_args=connect_args, echo=print_echo)
     sa.Tinyint = engine.dialect.Tinyint
     session = orm.sessionmaker(bind=engine)()
     metadata = MetaData()
