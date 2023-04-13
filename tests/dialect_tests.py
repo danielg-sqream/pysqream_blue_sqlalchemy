@@ -55,47 +55,48 @@ class TestSqlalchemy(TestBase):
         self.metadata.reflect(bind=self.engine)
         assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(sqream_blue://sqream:***@{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
 
-        Logger().info('SQLAlchemy ORM tests')
+        # Logger().info('SQLAlchemy ORM tests')
         # ORM queries - test that correct SQream queries (SQL text strings) are
         # created (that are then passed to the DB-API)
 
+        # TODO - BLUE IS NOT SUPPORT NETWORK INSERT
         # Create table via ORM
-        orm_table = Table(
-            'orm_table', self.metadata,
-            Column('bools', sa.Boolean),
-            Column('ubytes', sa.Tinyint),
-            Column('shorts', sa.SmallInteger),
-            Column('iNts', sa.Integer),
-            Column('bigints', sa.BigInteger),
-            Column('floats', sa.REAL),
-            Column('doubles', sa.Float),
-            Column('dates', sa.Date),
-            Column('datetimes', sa.DateTime),
-            Column('varchars', sa.String(10)),
-            Column('nvarchars', sa.UnicodeText),
-            Column('numerics', sa.Numeric(38, 10)),
-            extend_existing = True
-        )
-        if self.engine.has_table(orm_table.name):
-            orm_table.drop()
-
-        orm_table.create()
-
-        # Insert into table
-        values = [(True, 77, 777, 7777, 77777, 7.0, 7.77777777, date(2012, 11, 23), datetime(2012, 11, 23, 16, 34, 56),
-                   'bla', 'בלה', Decimal("1.1")),] * 2
-        orm_table.insert().values(values).execute()
-
-        # Validate results
-        res = self.engine.execute(orm_table.select()).fetchall()
-        assert(values == res)
-
-        # Run a simple join query
-        t2 = orm_table.alias()
-        joined = orm_table.join(t2, orm_table.columns.iNts == t2.columns.iNts, isouter=False)
-        # orm_table.select().select_from(joined).execute()
-        res = joined.select().execute().fetchall()
-        assert(len(res) == 2 * len(values))
+        # orm_table = Table(
+        #     'orm_table', self.metadata,
+        #     Column('bools', sa.Boolean),
+        #     Column('ubytes', sa.Tinyint),
+        #     Column('shorts', sa.SmallInteger),
+        #     Column('iNts', sa.Integer),
+        #     Column('bigints', sa.BigInteger),
+        #     Column('floats', sa.REAL),
+        #     Column('doubles', sa.Float),
+        #     Column('dates', sa.Date),
+        #     Column('datetimes', sa.DateTime),
+        #     Column('varchars', sa.String(10)),
+        #     Column('nvarchars', sa.UnicodeText),
+        #     Column('numerics', sa.Numeric(38, 10)),
+        #     extend_existing = True
+        # )
+        # if self.engine.has_table(orm_table.name):
+        #     orm_table.drop()
+        #
+        # orm_table.create()
+        #
+        # # Insert into table
+        # values = [(True, 77, 777, 7777, 77777, 7.0, 7.77777777, date(2012, 11, 23), datetime(2012, 11, 23, 16, 34, 56),
+        #            'bla', 'בלה', Decimal("1.1")),] * 2
+        # orm_table.insert().values(values).execute()
+        #
+        # # Validate results
+        # res = self.engine.execute(orm_table.select()).fetchall()
+        # assert(values == res)
+        #
+        # # Run a simple join query
+        # t2 = orm_table.alias()
+        # joined = orm_table.join(t2, orm_table.columns.iNts == t2.columns.iNts, isouter=False)
+        # # orm_table.select().select_from(joined).execute()
+        # res = joined.select().execute().fetchall()
+        # assert(len(res) == 2 * len(values))
 
 
 ## Pandas tests
