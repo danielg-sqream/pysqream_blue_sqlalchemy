@@ -43,5 +43,5 @@ Integrating with the IPython/Jupyter SQL Magic
     %config SqlMagic.autocommit=False
     %config SqlMagic.displaycon=False
     %config SqlMagic.autopandas=True
-    %env DATABASE_URL sqream_blue://sqream:sqream@product.isqream.com/master;access_token=_access_token
+    %sql sqream_blue://sqream:sqream@product.isqream.com/master?access_token=<ACCESS_TOKEN>
     %sql select 'Success' as Test
