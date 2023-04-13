@@ -5,9 +5,9 @@ SQLAlchemy Dialect for SQream DB
 Requirements
 =====================
 
-* Python > 3.7. Python 3.8.1+ recommended
+* Python > 3.9.
 * SQLAlchemy > 1.3.18
-* SQream Blue DB-API Connector >= 1.0.22
+* SQream Blue DB-API Connector >= 1.0.25
 
 Installation
 =====================
@@ -27,7 +27,7 @@ Integrating with SQLAlchemy
 .. code-block:: python
 
     import sqlalchemy as sa
-    conn_string = 'sqream_blue://username:password@url/database'
+    conn_str = f"pysqream+dialect://username:password@domain:443/database;access_token=_access_token"
     engine = sa.create_engine(conn_string)
     conn = engine.connect()
     res = conn.execute("select 'Success' as Test").fetchall()
@@ -42,5 +42,5 @@ Integrating with the IPython/Jupyter SQL Magic
     %config SqlMagic.autocommit=False
     %config SqlMagic.displaycon=False
     %config SqlMagic.autopandas=True
-    %env DATABASE_URL sqream_blue://sqream:sqream@product.isqream.com/master
+    %env DATABASE_URL sqream_blue://sqream:sqream@product.isqream.com/master;access_token=_access_token
     %sql select 'Success' as Test
