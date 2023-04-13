@@ -6,7 +6,7 @@ from pytest_logger import Logger
 from sqlalchemy import orm, create_engine, MetaData
 import sqlalchemy as sa
 
-_access_token="bFo2djNpTFBvYXJ4QTNEN0tHMmlDNTlKRW9hSEdEUGdDZjNVUVYyS3lUaGNDNFl0MFYtSTNncFhCaFl2SlYxdC12Y08zbm80VFo2emxndzBrbl92NEhDYTNfc2pnUDZu"
+_access_token="Z2hZaDdyMmhEWHFkdGJBN3c4em9SSndjcVBXQjI5a05XZjRHSHU4X1B0R1RmbzYzYm53NENGaUVIMGlSX0lLRjVhMUQ3c3JfbHQyVGtfRk1md3U5T1M3aXNlZlcwS2l4"
 
 
 def connect(domain, clustered=False, use_ssl=False):

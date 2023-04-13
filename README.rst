@@ -27,7 +27,8 @@ Integrating with SQLAlchemy
 .. code-block:: python
 
     import sqlalchemy as sa
-    conn_str = f"pysqream+dialect://username:password@domain:443/database;access_token=_access_token"
+    _access_token = "ACCESS TOKEN"
+    conn_str = f"sqream_blue://username:password@domain:443/database;access_token={_access_token}"
     engine = sa.create_engine(conn_string)
     conn = engine.connect()
     res = conn.execute("select 'Success' as Test").fetchall()
