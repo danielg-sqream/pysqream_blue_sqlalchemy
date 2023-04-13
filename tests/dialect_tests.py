@@ -32,10 +32,11 @@ class TestSqlalchemy(TestBase):
 
         Logger().info('SQLAlchemy direct query tests')
         # Test 0 - as bestowed upon me by Yuval. Using the URL object directly instead of a connection string
-        sa.dialects.registry.register("pysqream.dialect", "dialect", "SqreamDialect")
-        manual_conn_str = sa.engine.url.URL(
-            'pysqream+dialect', access_token=_access_token,
-            host=f'{self.domain}', database='master')
+        # sa.dialects.registry.register("pysqream.dialect", "dialect", "SqreamDialect")
+        # manual_conn_str = sa.engine.url.URL(
+        #     'pysqream+dialect', access_token=_access_token,
+        #     host=f'{self.domain}', database='master')
+        manual_conn_str = f"sqream_blue://sqream:sqream@{self.domain}:443/master;access_token={_access_token}"
         engine2 = create_engine(manual_conn_str)
         res = engine2.execute('select 1')
         assert(all(row[0] == 1 for row in res))
