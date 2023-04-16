@@ -31,7 +31,7 @@ class TestSqlalchemy(TestBase):
     def test_sqlalchemy(self):
 
         Logger().info('SQLAlchemy direct query tests')
-        manual_conn_str = f"sqream_blue://sqream:sqream@{self.domain}:443/master"
+        manual_conn_str = f"sqream_blue://{self.domain}:443/master"
         connect_args = {'access_token': _access_token}
         engine2 = create_engine(manual_conn_str, connect_args=connect_args)
         res = engine2.execute('select 1')
@@ -53,7 +53,7 @@ class TestSqlalchemy(TestBase):
         assert (inspected_cols[0]['name'] == 'iNts fosho')
 
         self.metadata.reflect(bind=self.engine)
-        assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(sqream_blue://sqream:***@{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
+        assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(sqream_blue://{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
 
         # Logger().info('SQLAlchemy ORM tests')
         # ORM queries - test that correct SQream queries (SQL text strings) are

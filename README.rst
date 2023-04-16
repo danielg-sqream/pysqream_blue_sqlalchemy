@@ -28,7 +28,7 @@ Integrating with SQLAlchemy
 
     import sqlalchemy as sa
     _access_token = "ACCESS TOKEN"
-    conn_str = f"sqream_blue://username:password@domain:443/database"
+    conn_str = f"sqream_blue://domain:443/database"
     connect_args = {'access_token': _access_token}
     engine = sa.create_engine(conn_string, connect_args=connect_args)
     conn = engine.connect()
@@ -44,5 +44,5 @@ Integrating with the IPython/Jupyter SQL Magic
     %config SqlMagic.autocommit=False
     %config SqlMagic.displaycon=False
     %config SqlMagic.autopandas=True
-    %sql sqream_blue://sqream:sqream@product.isqream.com/master?access_token=<ACCESS_TOKEN>
+    %sql sqream_blue://product.isqream.com/master?access_token=<ACCESS_TOKEN>
     %sql select 'Success' as Test
