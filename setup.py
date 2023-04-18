@@ -4,7 +4,7 @@ from setuptools import setup
 setup_params = dict(
     
     name =             'pysqream_blue_sqlalchemy',
-    version =          '0.2',
+    version =          '0.3',
     description =      'SQLAlchemy dialect for SQream Blue', 
     long_description = open("README.rst", "r", encoding="utf-8").read(),
     url=               "https://github.com/SQream/pysqream_blue_sqlalchemy",
@@ -23,12 +23,11 @@ setup_params = dict(
     
     install_requires = ['sqlalchemy>=1.3.18',
                         'pysqream-blue>=1.0.26',
-                        'setuptools==57.4.0',
-                        'pytest==6.2.3',
+                        'setuptools>=57.4.0',
                         'pudb==2022.1.2',
                         'pandas==1.1.5',
                         'numpy==1.20',
-                        'alembic==1.5.8'],
+                        'alembic>=1.6.3'],
     
     packages         = ['pysqream_blue_sqlalchemy'], 
     
