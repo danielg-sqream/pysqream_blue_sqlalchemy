@@ -28,7 +28,7 @@ setup_params = dict(
                         'pudb==2022.1.2',
                         'pandas==1.1.5',
                         'numpy==1.20',
-                        'alembic==1.5.8'],
+                        'alembic>=1.6.3'],
     
     packages         = ['pysqream_blue_sqlalchemy'], 
     
