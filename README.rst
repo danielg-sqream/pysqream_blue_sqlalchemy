@@ -6,7 +6,7 @@ Requirements
 =====================
 
 * Python > 3.9.
-* SQLAlchemy > 1.3.18
+* SQLAlchemy == 1.3.18
 * SQream Blue DB-API Connector >= 1.0.31
 
 Installation
@@ -16,7 +16,7 @@ Install from the PyPi repository using `pip`:
 
 .. code-block:: bash
 
-    pip install --upgrade pysqream_blue_sqlalchemy
+    pip3.9 install --upgrade pysqream_blue_sqlalchemy
 
 Usage
 ===============================
@@ -46,3 +46,36 @@ Integrating with the IPython/Jupyter SQL Magic
     %config SqlMagic.autopandas=True
     %sql sqream_blue://product.isqream.com/master?access_token=<ACCESS_TOKEN>
     %sql select 'Success' as Test
+
+
+Connection String 
+=====================
+
+.. code-block:: shell
+
+    sqream_blue://<domain>:443/<db_name>
+
+Parameters
+------------
+
+.. list-table:: 
+   :widths: auto
+   :header-rows: 1
+   
+   * - Parameter
+     - Description
+   * - ``domain``
+     - Specifies the domain
+   * - ``port``
+     - Specifies the port number
+   * - ``database``
+     - Specifies the database name 
+
+
+Limitations
+=============
+
+Parameterized Queries
+-----------------------
+
+SQream SQLAlchemy supports only the ``BULK INSERT`` statement.
