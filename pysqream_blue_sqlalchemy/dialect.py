@@ -246,23 +246,20 @@ class SqreamBlueDialect(DefaultDialect):
 
     def get_table_names(self, connection, schema=None, **kw):
         ''' Allows showing table names when connecting database to Apache Superset'''
-
-        query = "select * from sqream_catalog.tables"
+        query = "describe tables"
         tables = connection.execute(query).fetchall()
-        query = "select * from sqream_catalog.external_tables"
-        external_tables = connection.execute(query).fetchall()
-        return [table_spec[3] for table_spec in tables + external_tables]
+        return [table_spec[2] for table_spec in tables]
 
     def get_schema_names(self, connection, schema=None, **kw):
         ''' Return schema names '''
-
-        query = "select get_schemas()"
-        return [schema for schema, database in connection.execute(query).fetchall()]
+        query = "describe schemas"
+        schemas = connection.execute(query).fetchall()
+        return [schema_spec[1] for schema_spec in schemas]
 
     def get_view_names(self, connection, schema='public', **kw):
-        
-        # 0,public.fuzz
-        return [schema_view.split(".", 1)[1] for idx, schema_view in connection.execute("select get_views()").fetchall() if schema_view.split(".", 1)[0] == schema]
+        query = "describe views"
+        views = connection.execute(query).fetchall()
+        return [schema_view[1] for schema_view in views if schema_view[3] == schema]
 
     def has_table(self, connection, table_name, schema=None):
         return table_name in self.get_table_names(connection, schema)
@@ -271,7 +268,7 @@ class SqreamBlueDialect(DefaultDialect):
         ''' Used by SQLAlchemy's Table() which is called by Superset's get_table()
             when trying to add a new table to the sources'''
 
-        query = f'select get_ddl(\'"{table_name}"\')'
+        query = f'select get_ddl({table_name})'
         res = connection.execute(query).fetchall()
         table_ddl = ''.join(tup[0] for tup in res).splitlines()
 
