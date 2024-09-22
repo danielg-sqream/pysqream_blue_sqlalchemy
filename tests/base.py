@@ -6,8 +6,7 @@ from pytest_logger import Logger
 from sqlalchemy import orm, create_engine, MetaData
 import sqlalchemy as sa
 
-_access_token="Zk5QN1RxUXNzVTZPTmJiN3I2a2duekNFTXAwYVhKUVlISTltYVVuTllUdnhkb3lZRUxJeDJOT3pXZU5sM0Jzb09uVkNsSl9USEJPc1RFQlVISXowRDdTZ1dkaEM1UDBt"
-
+_access_token="THRkRWdEN2N2TTBxUEk5RGFycFpsUUIwYjlsSGRadmF6MlN3akJ1TWhhd2F0QW4wMWd5U1lpc1B5cm9fMjZlQ0pWWG9MWmtTaGdPRjhtR3I0NEMxcUN1c3dRS2t3V0ho"
 def connect(domain, clustered=False, use_ssl=False, access_token=_access_token):
     print_echo = False
     conn_str = f"sqream_blue://{domain}:443/master"
@@ -40,7 +39,7 @@ class TestBase():
         Logger().info("Before Scenario")
         Logger().info(f"Connect to server {domain}")
         self.domain = domain
-        self.engine ,self.metadata ,self.session, self.conn_str = connect(domain, access_token=access_token)
+        self.engine ,self.metadata ,self.session, self.conn_str = connect(domain, access_token=_access_token)
         setTinyint(self.engine)
         yield
         Logger().info("After Scenario")

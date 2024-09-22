@@ -38,7 +38,6 @@ class TestDdl(TestBase):
         assert (True, res)
 
     def test_get_view(self):
-        #try:
         Logger().info('SQLAlchemy dtest_get_view')
         self.engine.execute("create or replace table x (x int, y text, z datetime)")
         self.engine.execute("create view view_z2 as select * from x")
