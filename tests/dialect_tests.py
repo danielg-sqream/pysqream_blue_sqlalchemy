@@ -26,26 +26,40 @@ except:
 sa.dialects.registry.register("pysqream.dialect", "dialect", "SqreamDialect")
 
 
+class TestDdl(TestBase):
+
+    def test_has_tables(self):
+        Logger().info('SQLAlchemy direct query tests')
+        self.engine.execute("create or replace table x (x int, y text, z datetime)")
+        self.engine.execute("create or replace foreign table  x_foreign (x int, y text, z datetime) wrapper parquet_fdw options (location = 'gs://qa-tests-b1/nemanja/test1.parquet', continue_on_error = 'False');")
+        res = self.engine.dialect.has_table(self.engine.connect(), "x")
+        assert (True, res)
+        res = self.engine.dialect.has_table(self.engine.connect(), "x_foreign")
+        assert (True, res)
+
+    def test_get_view(self):
+        Logger().info('SQLAlchemy dtest_get_view')
+        self.engine.execute("create or replace table x (x int, y text, z datetime)")
+        self.engine.execute("create view view_z2 as select * from x")
+        views = self.engine.dialect.get_view_names(self.engine.connect())
+        assert "view_z2" in views
+
 class TestSqlalchemy(TestBase):
 
     def test_sqlalchemy(self):
-
         Logger().info('SQLAlchemy direct query tests')
-        manual_conn_str = f"sqream_blue://{self.domain}:443/master"
-        connect_args = {'access_token': _access_token}
-        engine2 = create_engine(manual_conn_str, connect_args=connect_args)
-        res = engine2.execute('select 1')
+        res = self.engine.execute('select 1')
         res.fetchall()
-        assert(all(row[0] == 1 for row in res))
+        assert (all(row[0] == 1 for row in res))
 
         # Simple direct Engine query - this passes the queries to the underlying DB-API
         res = self.engine.execute('create or replace table "kOko" ("iNts fosho" int not null)')
         res = self.engine.execute('insert into "kOko" values (1),(2),(3),(4),(5)')
         res = self.engine.execute('select * from "kOko"')
         # Using the underlying DB-API fetch() functions
-        assert(res.fetchone() == ([1],))
-        assert(res.fetchmany(2) == [(2,), (3,)])
-        assert(res.fetchall() == [(4,), (5,)])
+        assert (res.fetchone() == ((1,),))
+        assert (res.fetchmany(2) == [(2,), (3,)])
+        assert (res.fetchall() == [(4,), (5,)])
 
         # Reflection test
         inspector = inspect(self.engine)
@@ -54,7 +68,6 @@ class TestSqlalchemy(TestBase):
 
         self.metadata.reflect(bind=self.engine)
         assert(repr(self.metadata.tables["kOko"]) == f"Table('kOko', MetaData(bind=Engine(sqream_blue://{self.domain}:443/master)), Column('iNts fosho', Integer(), table=<kOko>, nullable=False), schema=None)")
-
         # Logger().info('SQLAlchemy ORM tests')
         # ORM queries - test that correct SQream queries (SQL text strings) are
         # created (that are then passed to the DB-API)
